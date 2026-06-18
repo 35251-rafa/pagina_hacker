@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Gateway | Access Granted</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="space-canvas"></canvas>
+
+    <main class="login-core" id="login-interface">
+        <div class="hud-frame">
+            <header class="hud-header">
+                <span class="status-indicator cyan-blink"></span> CONEXÃO QUÂNTICA ESTÁVEL
+            </header>
+
+            <div class="auth-flow">
+                <div class="step-pane active" id="step-1">
+                    <label for="identity">> INSERIR IDENTIDADE DE REDE</label>
+                    <input type="text" id="identity" placeholder="NOME DO OPERADOR..." autocomplete="off">
+                    <button onclick="advanceStep(1)">AVANÇAR_</button>
+                </div>
+
+                <div class="step-pane" id="step-2">
+                    <label for="cipher">> INJECTAR CHAVE CRIPTOGRÁFICA</label>
+                    <input type="password" id="cipher" placeholder="******">
+                    <button onclick="advanceStep(2)">AUTENTICAR_</button>
+                </div>
+
+                <div class="step-pane" id="step-3">
+                    <label class="game-instruction">> SEGURANÇA: ALINHE O NÚCLEO ÀS ÓRBITAS</label>
+                    <div class="constellation-game" id="game-zone">
+                        <div class="target-node" style="top: 20%; left: 30%;"></div>
+                        <div class="target-node" style="top: 70%; left: 80%;"></div>
+                        <div class="target-node" style="top: 40%; left: 60%;"></div>
+                        <div class="player-core" id="player-core"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-bar"></div>
+            </div>
+        </div>
+    </main>
+
+    <section id="hacker-dashboard" class="dashboard-grid hidden">
+        
+        <div class="widget grid-col-2">
+            <div class="w-header">🟢 TERMINAL DE OPERAÇÕES <span class="w-control">_ 🔲 ❌</span></div>
+            <div class="w-body terminal-text" id="terminal-log">
+                <p>> Inicializando bypass de segurança de rede corporativa...</p>
+                <p>> Injetando pacotes na porta 443...</p>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="w-header">🟢 MAPA QUÂNTICO <span class="w-control">❌</span></div>
+            <div class="w-body center-flex">
+                <div class="hacker-map">
+                    <div class="map-node" style="top:30%; left:20%"></div>
+                    <div class="map-node" style="top:50%; left:50%"></div>
+                    <div class="map-node" style="top:20%; left:70%"></div>
+                    <div class="map-node" style="top:80%; left:40%"></div>
+                    <div class="map-node" style="top:70%; left:80%"></div>
+                    <svg class="map-lines"><line id="svg-l1"/><line id="svg-l2"/><line id="svg-l3"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="w-header">🟢 PERFIL INFO <span class="w-control">_ ❌</span></div>
+            <div class="w-body profile-panel">
+                <p class="highlight">PERFIL: OPERADOR 734</p>
+                <p>NÍVEL DE ACESSO: ADMINISTRADOR</p>
+                <p>CHAVE RSA: ENCRIPTADA [OK]</p>
+                <div class="matrix-loader"></div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="w-header">🟢 NETWORK TRAFFIC <span class="w-control">❌</span></div>
+            <div class="w-body network-body">
+                <div class="bar-chart">
+                    <div class="bar" style="height: 40%"></div>
+                    <div class="bar" style="height: 85%"></div>
+                    <div class="bar" style="height: 60%"></div>
+                    <div class="bar" style="height: 95%"></div>
+                    <div class="bar" style="height: 30%"></div>
+                </div>
+                <p class="status-footer">STATUS: LINKS EM TRÂNSITO ATIVO (100%)</p>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="w-header">🟢 DECRYPTION MODULE <span class="w-control">_ ❌</span></div>
+            <div class="w-body decrypt-zone">
+                <div class="binary-stream" id="binary-box"></div>
+                <div class="decrypted-alert">SCRIPT EM EXECUÇÃO: [10101100]<br>CHAVE ENCONTRADA.</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

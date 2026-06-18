@@ -1,0 +1,147 @@
+:root {
+    --neon-blue: #00f3ff;
+    --neon-purple: #9d00ff;
+    --neon-green: #39ff14;
+    --dark-void: #020604;
+    --text-color: #d1f4ff;
+    --terminal-green: #20c20e;
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: var(--dark-void);
+    color: var(--text-color);
+    min-height: 100vh; overflow-x: hidden;
+    display: flex; justify-content: center; align-items: center;
+}
+
+#space-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
+}
+
+/* INTERFACE LOGIN */
+.login-core {
+    position: relative; z-index: 2; width: 90%; max-width: 420px;
+    transition: transform 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 0.5s;
+}
+
+.hud-frame {
+    background: rgba(2, 10, 5, 0.85);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    border-radius: 6px; padding: 30px; backdrop-filter: blur(8px);
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.1);
+}
+
+.hud-header {
+    font-size: 0.75rem; letter-spacing: 2px; color: var(--neon-green); margin-bottom: 30px;
+    display: flex; align-items: center; gap: 8px;
+}
+
+.status-indicator {
+    width: 6px; height: 6px; background: var(--neon-green); border-radius: 50%;
+}
+.cyan-blink { animation: blink 1s infinite alternate; box-shadow: 0 0 8px var(--neon-green); }
+
+.step-pane { display: none; animation: paneSlide 0.4s ease forwards; }
+.step-pane.active { display: flex; flex-direction: column; gap: 15px; }
+
+label { font-size: 0.85rem; color: #6db37e; }
+input {
+    background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(57, 255, 20, 0.4);
+    border-radius: 4px; padding: 14px; color: var(--neon-green); font-size: 1.1rem; outline: none;
+}
+input:focus { border-color: var(--neon-green); box-shadow: 0 0 12px rgba(57, 255, 20, 0.3); }
+
+button {
+    background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);
+    padding: 12px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.3s;
+}
+button:hover { background: rgba(57, 255, 20, 0.15); box-shadow: 0 0 15px var(--neon-green); }
+
+/* MINI GAME */
+.constellation-game {
+    width: 100%; height: 180px; background: rgba(0, 0, 0, 0.7);
+    border: 1px dashed rgba(57, 255, 20, 0.3); position: relative; overflow: hidden;
+}
+.target-node {
+    position: absolute; width: 14px; height: 14px; background: transparent;
+    border: 2px solid #ff3333; border-radius: 50%; transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px #ff3333;
+}
+.target-node.hit { border-color: var(--neon-green); box-shadow: 0 0 12px var(--neon-green); background: var(--neon-green); }
+.player-core {
+    position: absolute; top: 50%; left: 10%; width: 20px; height: 20px;
+    background: var(--neon-green); border-radius: 50%; transform: translate(-50%, -50%);
+    cursor: grab; box-shadow: 0 0 15px var(--neon-green);
+}
+
+.progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.5); margin-top: 30px; }
+.progress-fill { width: 33%; height: 100%; background: var(--neon-green); transition: width 0.4s; }
+
+/* PAINEL GRID HACKER (DASHBOARD) */
+.dashboard-grid {
+    position: relative; z-index: 2;
+    width: 95vw; max-width: 1400px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1xl));
+    gap: 15px; padding: 20px;
+    opacity: 0; transform: scale(0.9);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dashboard-grid.visible { opacity: 1; transform: scale(1); }
+
+.widget {
+    background: rgba(2, 8, 4, 0.9);
+    border: 1px solid var(--terminal-green);
+    border-radius: 4px; display: flex; flex-direction: column;
+    box-shadow: 0 0 15px rgba(32, 194, 14, 0.05);
+}
+
+.grid-col-2 { grid-column: span 2; }
+
+@media (max-width: 850px) {
+    .grid-col-2 { grid-column: span 1; }
+}
+
+.w-header {
+    background: rgba(32, 194, 14, 0.15); padding: 8px 12px;
+    font-size: 0.8rem; font-weight: bold; color: var(--neon-green);
+    display: flex; justify-content: space-between; border-bottom: 1px solid var(--terminal-green);
+}
+.w-control { color: rgba(32, 194, 14, 0.6); }
+
+.w-body { padding: 15px; min-height: 180px; color: var(--terminal-green); font-size: 0.85rem; overflow-y: auto; }
+
+/* Customizações internas dos Widgets */
+.terminal-text { max-height: 250px; line-height: 1.6; }
+
+.center-flex { display: flex; justify-content: center; align-items: center; }
+.hacker-map { width: 100%; height: 150px; position: relative; background: radial-gradient(circle, rgba(32,194,14,0.05) 0%, transparent 70%); }
+.map-node { position: absolute; width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; box-shadow: 0 0 8px var(--neon-green); }
+
+.profile-panel p { margin-bottom: 8px; }
+.profile-panel .highlight { color: #fff; font-weight: bold; font-size: 1rem;}
+
+.bar-chart { display: flex; align-items: flex-end; gap: 10px; height: 100px; margin-bottom: 15px; border-left: 1px solid var(--terminal-green); border-bottom: 1px solid var(--terminal-green); padding-left: 5px; }
+.bar { width: 25px; background: var(--terminal-green); animation: pulseBar 2s infinite alternate ease-in-out; }
+.bar:nth-child(2) { animation-delay: 0.3s; }
+.bar:nth-child(3) { animation-delay: 0.6s; }
+.bar:nth-child(4) { animation-delay: 0.1s; }
+
+.binary-stream { height: 75px; overflow: hidden; opacity: 0.5; font-size: 0.75rem; word-break: break-all; margin-bottom: 10px; }
+.decrypted-alert { border: 1px dashed var(--neon-green); padding: 10px; background: rgba(32,194,14,0.05); text-align: center; font-weight: bold; }
+
+/* UTILS / ANIMATIONS */
+.hidden { display: none !important; }
+.shake-error { animation: shake 0.4s; border-color: #ff3333 !important; }
+
+@keyframes paneSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes blink { from { opacity: 0.2; } to { opacity: 1; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+@keyframes pulseBar { from { transform: scaleY(0.4); } to { transform: scaleY(1); } }
